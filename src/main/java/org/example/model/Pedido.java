@@ -1,6 +1,6 @@
 package org.example.model;
 
-import org.example.enums.StatusPedido;
+import org.example.model.enums.StatusPedido;
 
 public class Pedido {
     private int id;
