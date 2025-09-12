@@ -2,8 +2,11 @@ package org.example.view;
 
 import org.example.DAO.ClienteDAO;
 import org.example.model.Cliente;
+import org.example.utils.ClienteUtils;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class ViewCliente {
@@ -14,13 +17,13 @@ public class ViewCliente {
         System.out.println("========= GERENCIADOR DE CLIENTE =========\n");
 
         System.out.println("""
-                1- Cadastrar Cliente\n
-                2- Listar Todas as Entregas\n
-                3- Clientes com Maior Volume Entregue\n
-                4- Buscar Pedido por CPF/CNPJ do Cliente\n
-                5- Excluir Cliente\n
-                0- Voltar ao Menu Inicial\n 
-                Digite sua opção:\n 
+                1- Cadastrar Cliente
+                2- Listar Todas as Entregas
+                3- Clientes com Maior Volume Entregue
+                4- Buscar Pedido por CPF/CNPJ do Cliente
+                5- Excluir Cliente
+                0- Voltar ao Menu Inicial 
+                Digite sua opção:
                 """);
         int opcao = scNum.nextInt();
         return opcao;
@@ -60,5 +63,25 @@ public class ViewCliente {
         }
 
     }
+
+    public static void buscarCliente(){
+        System.out.println("========= BUSCAR CLIENTE =========\n");
+
+        System.out.println("Digite o CPF ou CNPJ do Cliente: ");
+        String cpf_cnpj = scStr.nextLine();
+
+        List<Cliente> clientes = new ArrayList<>();
+
+        try{
+            var clienteDao = new ClienteDAO();
+            clienteDao.buscarClientePorCpf(cpf_cnpj);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("Ocorreu um Erro no Banco de Dados.");
+        }
+        ClienteUtils.exibirClientes(clientes);
+    }
+
 
 }
