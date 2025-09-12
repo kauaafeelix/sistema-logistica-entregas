@@ -17,7 +17,7 @@ public class ClienteUtils {
                 System.out.println("ESTADO: " + cliente.getEstado());
             }
         } else {
-            System.out.println("Nenhum contato cadastrado.");
+            System.out.println("Nenhum Cliente cadastrado.");
         }
     }
 }
