@@ -6,18 +6,21 @@ import org.example.view.ViewGeral;
 
 public class ClienteService {
     public void gerenciadorCliente(){
-        ViewCliente cliente = new ViewCliente();
-        int opcao = cliente.menuCliente();
+        int opcao = ViewCliente.menuCliente();
 
         switch (opcao){
             case 1->{
-                cliente.cadastrarCliente();
+                ViewCliente.cadastrarCliente();
             }
             case 2->{}
             case 3->{}
-            case 4->{}
+            case 4->{
+                ViewCliente.buscarCliente();
+            }
             case 5->{}
-            case 0->{}
+            case 0->{
+                ViewGeral.menuGeral();
+            }
 
         }
     }
