@@ -19,8 +19,8 @@ public class ViewCliente {
         System.out.println("""
                 1- Cadastrar Cliente
                 2- Listar Clientes
-                3- Buscar Cliente
-                4- Excluir Cliente
+                3- Buscar Cliente por ID
+                4- Excluir Cliente por ID
                 0- Voltar ao Menu Inicial 
                 Digite sua opção:
                 """);
