@@ -10,6 +10,5 @@ public class Main {
         GeralService gerenciador = new GeralService();
 
         gerenciador.gerenciadorService();
-
     }
 }
