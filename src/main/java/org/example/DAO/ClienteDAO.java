@@ -31,30 +31,64 @@ public class ClienteDAO {
         }
     }
 
-    public List<Cliente> buscarClientePorCpf(String cpf_cnpj) throws SQLException{
+    public List<Cliente> listarClientes() throws SQLException{
         List<Cliente> clientes = new ArrayList<>();
-        String sql = "SELECT id, nome, cpf_cnpj, endereco, cidade, estado FROM Cliente WHERE cpf_cnpj = ?";
+        String sql = "SELECT id, nome, cpf_cnpj, endereco, cidade, estado FROM Cliente";
 
         try(Connection conn = Conexao.conectar();
             PreparedStatement stmt = conn.prepareStatement(sql)){
-
-            stmt.setString(1, cpf_cnpj);
 
             ResultSet rs = stmt.executeQuery();
 
             while(rs.next()){
                 int id = rs.getInt("id");
                 String nome = rs.getString("nome");
+                String cpf_cnpj = rs.getString("cpf_cnpj");
+                String endereco = rs.getString("endereco");
+                String cidade = rs.getString("cidade");
+                String estado = rs.getString("estado");
+
+                var cliente = new Cliente(id, nome, cpf_cnpj, endereco, cidade, estado);
+                clientes.add(cliente);
+            }
+        }
+        return clientes;
+    }
+
+    public List<Cliente> buscarClientePorId(int id) throws SQLException{
+        List<Cliente> clientes = new ArrayList<>();
+        String sql = "SELECT id, nome, cpf_cnpj, endereco, cidade, estado FROM Cliente WHERE id = ?";
+
+        try(Connection conn = Conexao.conectar();
+            PreparedStatement stmt = conn.prepareStatement(sql)){
+
+            stmt.setInt(1, id);
+
+            ResultSet rs = stmt.executeQuery();
+
+            while(rs.next()){
+                int id_banco = rs.getInt("id");
+                String nome = rs.getString("nome");
                 String cpf_cnpj_banco = rs.getString("cpf_cnpj");
                 String endereco = rs.getString("endereco");
                 String cidade = rs.getString("cidade");
                 String estado = rs.getString("estado");
 
-                var cliente = new Cliente(id, nome, cpf_cnpj_banco, endereco, cidade, estado);
+                var cliente = new Cliente(id_banco, nome, cpf_cnpj_banco, endereco, cidade, estado);
                 clientes.add(cliente);
             }
         }
         return clientes;
+    }
+    public void exculirCliente(int id) throws SQLException{
+        String sql = "DELETE FROM Cliente WHERE id = ?";
+
+        try(Connection conn = Conexao.conectar();
+            PreparedStatement stmt = conn.prepareStatement(sql)){
+
+            stmt.setInt(1, id);
+            stmt.executeUpdate();
+        }
     }
 
 }
