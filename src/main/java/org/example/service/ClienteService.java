@@ -12,12 +12,15 @@ public class ClienteService {
             case 1->{
                 ViewCliente.cadastrarCliente();
             }
-            case 2->{}
-            case 3->{}
-            case 4->{
+            case 2->{
+                ViewCliente.listarClientes();
+            }
+            case 3->{
                 ViewCliente.buscarCliente();
             }
-            case 5->{}
+            case 4-> {
+                ViewCliente.excluirCliente();
+            }
             case 0->{
                 ViewGeral.menuGeral();
             }
