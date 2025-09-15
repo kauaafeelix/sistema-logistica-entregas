@@ -18,17 +18,15 @@ public class ViewCliente {
 
         System.out.println("""
                 1- Cadastrar Cliente
-                2- Listar Todas as Entregas
-                3- Clientes com Maior Volume Entregue
-                4- Buscar Pedido por CPF/CNPJ do Cliente
-                5- Excluir Cliente
+                2- Listar Clientes
+                3- Buscar Cliente
+                4- Excluir Cliente
                 0- Voltar ao Menu Inicial 
                 Digite sua opção:
                 """);
         int opcao = scNum.nextInt();
         return opcao;
     }
-
 
 
     public static void cadastrarCliente(){
@@ -64,17 +62,14 @@ public class ViewCliente {
 
     }
 
-    public static void buscarCliente(){
-        System.out.println("========= BUSCAR CLIENTE =========\n");
-
-        System.out.println("Digite o CPF ou CNPJ do Cliente: ");
-        String cpf_cnpj = scStr.nextLine();
+    public static void listarClientes(){
+        System.out.println("========= LISTA DE CLIENTES =========\n");
 
         List<Cliente> clientes = new ArrayList<>();
 
         try{
             var clienteDao = new ClienteDAO();
-            clienteDao.buscarClientePorCpf(cpf_cnpj);
+            clientes = clienteDao.listarClientes();
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -83,5 +78,55 @@ public class ViewCliente {
         ClienteUtils.exibirClientes(clientes);
     }
 
+    public static void buscarCliente(){
+        System.out.println("========= BUSCAR CLIENTE =========\n");
 
+        System.out.println("Digite o ID do Cliente: ");
+        int id = scNum.nextInt();
+
+        List<Cliente> clientes = new ArrayList<>();
+
+        try{
+            var clienteDao = new ClienteDAO();
+            clientes = clienteDao.buscarClientePorId(id);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("Ocorreu um Erro no Banco de Dados.");
+        }
+        ClienteUtils.exibirClientes(clientes);
+
+
+    }
+
+    public static void excluirCliente(){
+        System.out.println("========= EXCLUIR CLIENTE =========\n");
+
+        System.out.println("Digite o ID do Cliente que deseja excluir: ");
+        int id = scNum.nextInt();
+
+        System.out.println("Você tem certeza que deseja excluir o Cliente de ID " + id + " ? (S/N)");
+        System.out.println("Caso exclua o Cliente, todos os Pedidos vinculados a ele também serão excluídos.");
+        System.out.println("Essa operação não poderá ser desfeita.");
+        String confirma = scStr.nextLine();
+        if(!confirma.equalsIgnoreCase("S")){
+            System.out.println("Operação Cancelada pelo Usuário.");
+            return;
+        }
+        else {
+            try {
+                var clienteDao = new ClienteDAO();
+                clienteDao.exculirCliente(id);
+                System.out.println("\nCLIENTE EXCLUÍDO COM SUCESSO!");
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+                System.out.println("Ocorreu um Erro no Banco de Dados.");
+            }
+        }
+    }
 }
+
+
+
+
