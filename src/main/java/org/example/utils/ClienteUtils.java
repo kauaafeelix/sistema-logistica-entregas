@@ -3,11 +3,12 @@ package org.example.utils;
 import org.example.model.Cliente;
 
 import java.util.List;
+import java.util.Scanner;
 
 public class ClienteUtils {
+    static Scanner sc = new Scanner (System.in);
     public static void exibirClientes(List<Cliente> clientes) {
-        if (!clientes.isEmpty()) {
-
+        if (clientes != null && !clientes.isEmpty()) {
             for (Cliente cliente : clientes) {
                 System.out.println("\nID: " + cliente.getId());
                 System.out.println("NOME: " + cliente.getNome());
