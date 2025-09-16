@@ -1,9 +1,13 @@
 package org.example.view;
 
+import org.example.DAO.ClienteDAO;
 import org.example.DAO.MotoristaDAO;
 import org.example.model.Motorista;
+import org.example.utils.MotoristaUtils;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class ViewMotorista {
@@ -14,18 +18,18 @@ public class ViewMotorista {
         System.out.println("========= GERENCIADOR DE MOTORISTA =========\n");
 
         System.out.println("""
-                1- Cadastrar Motorista\n
-                2- Listar Todas as Entregas\n
-                3- Total de Entregas por Motorista\n
-                4- Excluir Motorista\n
-                0- Voltar ao Menu Inicial\n
-                Digite sua opção:\n  
+                1- Cadastrar Motorista
+                2- Listar Motoristas
+                3- Buscar Motorista pelo Nome
+                4- Excluir Motorista por ID
+                0- Voltar ao Menu Inicial
+                Digite sua opção:  
                 """);
         int opcao = scNum.nextInt();
         return opcao;
     }
 
-    public void cadastrarMotorista(){
+    public static void cadastrarMotorista(){
 
         System.out.println("========= CADASTRO DE MOTORISTA =========\n");
 
@@ -54,4 +58,82 @@ public class ViewMotorista {
         }
 
     }
+
+    public static void listarMotoristas(){
+        System.out.println("========= LISTA DE MOTORISTAS =========\n");
+
+        List<Motorista>motoristas = new ArrayList<>();
+
+        try{
+            var motoristaDao = new MotoristaDAO();
+            motoristas = motoristaDao.listarMotoristas();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("Ocorreu um erro no Banco de Dados!");
+        }
+        MotoristaUtils.exibirMotoristas(motoristas);
+    }
+    public static void buscarMotorista(){
+        System.out.println("========= BUSCAR MOTORISTA =========\n");
+
+        List<Motorista> motoristas = new ArrayList<>();
+
+        System.out.println("Digite o Nome do Motorista: ");
+        String nome = scStr.nextLine();
+
+        try {
+            var motoristaDao = new MotoristaDAO();
+            motoristas = motoristaDao.buscarMotorista(nome);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("Ocorreu um erro no Banco de Dados!");
+        }
+        MotoristaUtils.exibirMotoristas(motoristas);
+
+    }
+
+    public static void excluirMotorista(){
+        System.out.println("========= EXCLUIR MOTORISTA =========\n");
+
+        System.out.println("MOTORISTAS DISPONÍVEIS: ");
+
+        List<Motorista>motoristas = new ArrayList<>();
+
+        try {
+            var motoristaDao = new MotoristaDAO();
+            motoristas = motoristaDao.listarMotoristas();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("Ocorreu um erro no Banco de Dados!");
+        }
+        MotoristaUtils.exibirMotoristas(motoristas);
+
+        System.out.println("\nDigite o ID do Motorista que deseja excluir: ");
+        int id = scNum.nextInt();
+
+
+        System.out.println("Você tem certeza que deseja excluir o Motorista de ID " + id + " ?");
+        System.out.println("Caso exclua o Motorista, todos as Entregas vinculados a ele também serão excluídos.");
+        System.out.println("Essa operação não poderá ser desfeita.");
+        System.out.println("\nDigite (S) para SIM e (N) para NÃO: ");
+        String confirma = scStr.nextLine();
+
+        if(!confirma.equalsIgnoreCase("S")){
+            System.out.println("Operação Cancelada pelo Usuário.");
+            return;
+        }
+        else {
+            try {
+                var motoristaDao = new MotoristaDAO();
+                motoristaDao.excluirMotorista(id);
+                System.out.println("\nMOTORISTA EXCLUÍDO COM SUCESSO!");
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+                System.out.println("Ocorreu um Erro no Banco de Dados.");
+            }
+        }
+    }
+
 }
