@@ -1,19 +1,23 @@
 package org.example.model;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Date;
+
 public class HistoricoEntrega {
     private int id;
     private int entrega_id;
-    private String data_evento;
+    private LocalDate data_evento;
     private String descricao;
 
-    public HistoricoEntrega(int id, int entrega_id, String data_evento, String descricao) {
+    public HistoricoEntrega(int id, int entrega_id, LocalDate data_evento, String descricao) {
         this.id = id;
         this.entrega_id = entrega_id;
         this.data_evento = data_evento;
         this.descricao = descricao;
     }
 
-    public HistoricoEntrega(int entrega_id, String data_evento, String descricao) {
+    public HistoricoEntrega(int entrega_id, LocalDate data_evento, String descricao) {
         this.entrega_id = entrega_id;
         this.data_evento = data_evento;
         this.descricao = descricao;
@@ -35,11 +39,11 @@ public class HistoricoEntrega {
         this.entrega_id = entrega_id;
     }
 
-    public String getData_evento() {
+    public LocalDate getData_evento() {
         return data_evento;
     }
 
-    public void setData_evento(String data_evento) {
+    public void setData_evento(LocalDate data_evento) {
         this.data_evento = data_evento;
     }
 
