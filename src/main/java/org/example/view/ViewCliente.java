@@ -19,9 +19,9 @@ public class ViewCliente {
         System.out.println("""
                 1- Cadastrar Cliente
                 2- Listar Clientes
-                3- Buscar Cliente por ID
+                3- Buscar Cliente pelo Nome
                 4- Excluir Cliente por ID
-                0- Voltar ao Menu Inicial 
+                0- Voltar ao Menu Inicial
                 Digite sua opção:
                 """);
         int opcao = scNum.nextInt();
@@ -81,14 +81,14 @@ public class ViewCliente {
     public static void buscarCliente(){
         System.out.println("========= BUSCAR CLIENTE =========\n");
 
-        System.out.println("Digite o ID do Cliente: ");
-        int id = scNum.nextInt();
+        System.out.println("Digite o Nome do Cliente: ");
+        String nome = scStr.nextLine();
 
         List<Cliente> clientes = new ArrayList<>();
 
         try{
             var clienteDao = new ClienteDAO();
-            clientes = clienteDao.buscarClientePorId(id);
+            clientes = clienteDao.buscarCliente(nome);
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -102,13 +102,21 @@ public class ViewCliente {
     public static void excluirCliente(){
         System.out.println("========= EXCLUIR CLIENTE =========\n");
 
+        System.out.println("CLIENTES DISPONÍVEIS: ");
+
+        List<Cliente>clientes = new ArrayList<>();
+
+        ClienteUtils.exibirClientes(clientes);
+
         System.out.println("Digite o ID do Cliente que deseja excluir: ");
         int id = scNum.nextInt();
+
 
         System.out.println("Você tem certeza que deseja excluir o Cliente de ID " + id + " ? (S/N)");
         System.out.println("Caso exclua o Cliente, todos os Pedidos vinculados a ele também serão excluídos.");
         System.out.println("Essa operação não poderá ser desfeita.");
         String confirma = scStr.nextLine();
+
         if(!confirma.equalsIgnoreCase("S")){
             System.out.println("Operação Cancelada pelo Usuário.");
             return;
