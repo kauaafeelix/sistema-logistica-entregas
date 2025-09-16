@@ -9,13 +9,14 @@ public class ViewGeral {
 
     public static int menuGeral(){
         System.out.println("""
-                \n========= BEM VINDO A KAFE ENTREGAS =========\n
-                1- Gerenciar Clientes\n
-                2- Gerenciar Motoristas\n
-                3- Gerenciar Pedidos\n
-                4- Gerenciar Entregas\n
-                0 - Sair\n
-                \nDigite sua opção: 
+                \n========= BEM VINDO A KAFE ENTREGAS =========
+                1- Gerenciar Clientes
+                2- Gerenciar Motoristas
+                3- Gerenciar Pedidos
+                4- Gerenciar Entregas
+                5- Registros
+                0 - Sair
+                Digite sua opção: 
                 """);
         int opcao = scNum.nextInt();
         return opcao;
