@@ -55,26 +55,26 @@ public class ClienteDAO {
         return clientes;
     }
 
-    public List<Cliente> buscarClientePorId(int id) throws SQLException{
+    public List<Cliente> buscarCliente(String nome) throws SQLException{
         List<Cliente> clientes = new ArrayList<>();
-        String sql = "SELECT id, nome, cpf_cnpj, endereco, cidade, estado FROM Cliente WHERE id = ?";
+        String sql = "SELECT id, nome, cpf_cnpj, endereco, cidade, estado FROM Cliente WHERE nome LIKE ?";
 
         try(Connection conn = Conexao.conectar();
             PreparedStatement stmt = conn.prepareStatement(sql)){
 
-            stmt.setInt(1, id);
+            stmt.setString(1, nome);
 
             ResultSet rs = stmt.executeQuery();
 
             while(rs.next()){
-                int id_banco = rs.getInt("id");
-                String nome = rs.getString("nome");
+                int id = rs.getInt("id");
+                String nome_banco = rs.getString("nome");
                 String cpf_cnpj_banco = rs.getString("cpf_cnpj");
                 String endereco = rs.getString("endereco");
                 String cidade = rs.getString("cidade");
                 String estado = rs.getString("estado");
 
-                var cliente = new Cliente(id_banco, nome, cpf_cnpj_banco, endereco, cidade, estado);
+                var cliente = new Cliente(id, nome_banco, cpf_cnpj_banco, endereco, cidade, estado);
                 clientes.add(cliente);
             }
         }
