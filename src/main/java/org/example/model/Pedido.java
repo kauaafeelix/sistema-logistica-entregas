@@ -2,15 +2,17 @@ package org.example.model;
 
 import org.example.model.enums.StatusPedido;
 
+import java.time.LocalDate;
+
 public class Pedido {
     private int id;
     private int cliente_id;
-    private String data_pedido;
+    private LocalDate data_pedido;
     private double volume_m3;
     private double peso_kg;
     private StatusPedido status;
 
-    public Pedido(int id, int cliente_id, String data_pedido, double volume_m3, double peso_kg, StatusPedido status) {
+    public Pedido(int id, int cliente_id, LocalDate data_pedido, double volume_m3, double peso_kg, StatusPedido status) {
         this.id = id;
         this.cliente_id = cliente_id;
         this.data_pedido = data_pedido;
@@ -19,7 +21,7 @@ public class Pedido {
         this.status = status;
     }
 
-    public Pedido(int cliente_id, String data_pedido, double volume_m3, double peso_kg, StatusPedido status) {
+    public Pedido(int cliente_id, LocalDate data_pedido, double volume_m3, double peso_kg, StatusPedido status) {
         this.cliente_id = cliente_id;
         this.data_pedido = data_pedido;
         this.volume_m3 = volume_m3;
@@ -43,11 +45,11 @@ public class Pedido {
         this.cliente_id = cliente_id;
     }
 
-    public String getData_pedido() {
+    public LocalDate getData_pedido() {
         return data_pedido;
     }
 
-    public void setData_pedido(String data_pedido) {
+    public void setData_pedido(LocalDate data_pedido) {
         this.data_pedido = data_pedido;
     }
 
