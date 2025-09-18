@@ -3,9 +3,11 @@ package org.example.view;
 import org.example.DAO.ClienteDAO;
 import org.example.DAO.PedidoDAO;
 import org.example.model.Pedido;
+import org.example.model.enums.StatusPedido;
 import org.example.utils.PedidoUtils;
 
 import java.sql.SQLException;
+import java.sql.SQLOutput;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -96,5 +98,37 @@ public class ViewPedido {
             e.printStackTrace();
         }
         PedidoUtils.exibirPedidos(pedidosCpfCnpj);
+    }
+
+    public static void atualizarPedido(){
+        System.out.println("========= ATUALIZAR STATUS DO PEDIDO =========\n");
+
+        System.out.println("========= PEDIDOS JÁ CADASTRADOS =========\n");
+
+        List<Pedido>pedidos = new ArrayList<>();
+        try{
+            var pedidoDao = new PedidoDAO();
+            pedidos = pedidoDao.listarPedidos();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        PedidoUtils.exibirPedidos(pedidos);
+        System.out.println("\n================================");
+        if (pedidos != null && !pedidos.isEmpty()) {
+            System.out.println("\nDigite o ID do Pedido que deseja: ");
+            int id_pedido = scNum.nextInt();
+
+            System.out.println("\nDigite o novo Status que deseja atualizar (Cancelado, Entregue): ");
+            String status = scStr.nextLine();
+
+            try {
+                var pedidoDao = new PedidoDAO();
+                pedidoDao.atualizarStatusPedido(id_pedido, status);
+                System.out.println("\nPEDIDO ATUALIZADO COM SUCESSO.");
+            } catch (SQLException e) {
+                e.printStackTrace();
+                System.out.println("OCORREU UM ERRO NO BANCO DE DADOS.");
+            }
+        }
     }
 }
