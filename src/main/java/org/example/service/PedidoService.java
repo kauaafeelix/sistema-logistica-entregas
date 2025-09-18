@@ -11,7 +11,9 @@ public class PedidoService {
             case 1->{
                 ViewPedido.criarPedido();
             }
-            case 2->{}
+            case 2->{
+                ViewPedido.listarPedidos();
+            }
             case 3->{}
             case 4->{}
             case 0->{
