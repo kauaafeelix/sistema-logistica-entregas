@@ -114,5 +114,34 @@ public class PedidoDAO {
             stmt.executeUpdate();
         }
     }
+    public List<Pedido> listarPedidosPendentes() throws SQLException {
+        List<Pedido> pedidos = new ArrayList<>();
+
+        String sql = "SELECT p.id, p.cliente_id, c.nome AS cliente_nome, " +
+                "p.data_pedido, p.volume_m3, p.peso_kg, p.status " +
+                "FROM Pedido p " +
+                "JOIN Cliente c ON p.cliente_id = c.id " +
+                "WHERE p.status = 'PENDENTE'";
+
+        try (Connection conn = Conexao.conectar();
+             PreparedStatement stmt = conn.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
+
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                int clienteId = rs.getInt("cliente_id");
+                String clienteNome = rs.getString("cliente_nome");
+                LocalDate dataPedido = rs.getDate("data_pedido").toLocalDate();
+                double volume = rs.getDouble("volume_m3");
+                double peso = rs.getDouble("peso_kg");
+                StatusPedido status = StatusPedido.valueOf(rs.getString("status"));
+
+                var pedido = new Pedido(id, clienteNome, dataPedido, volume, peso, status);
+                pedidos.add(pedido);
+            }
+        }
+
+        return pedidos;
+    }
 
 }
