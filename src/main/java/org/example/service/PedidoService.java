@@ -17,7 +17,9 @@ public class PedidoService {
             case 3->{
                 ViewPedido.buscarPedido();
             }
-            case 4->{}
+            case 4->{
+                ViewPedido.atualizarPedido();
+            }
             case 5->{}
             case 6->{}
             case 0->{
