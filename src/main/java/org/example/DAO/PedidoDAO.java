@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PedidoDAO {
-    public void criarPedido(Pedido pedido) throws SQLException{
+    public void criarPedido(Pedido pedido) throws SQLException {
         String sql = """
                 INSERT INTO Pedido (
                 cliente_id,
@@ -20,7 +20,7 @@ public class PedidoDAO {
                 VALUES (?,?,?,?)
                 """;
         try (Connection conn = Conexao.conectar();
-             PreparedStatement stmt = conn.prepareStatement(sql)){
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setInt(1, pedido.getCliente_id());
             stmt.setDate(2, Date.valueOf(pedido.getData_pedido()));
@@ -31,33 +31,65 @@ public class PedidoDAO {
         }
 
     }
-        public List<Pedido> listarPedidos() throws SQLException{
-            List<Pedido>pedidos = new ArrayList<>();
 
-            String sql = "SELECT p.id, p.cliente_id, c.nome AS cliente_nome, " +
-                    "p.data_pedido, p.volume_m3, p.peso_kg, p.status " +
-                    "FROM Pedido p " +
-                    "JOIN Cliente c ON p.cliente_id = c.id";
+    public List<Pedido> listarPedidos() throws SQLException {
+        List<Pedido> pedidos = new ArrayList<>();
 
-            try (Connection conn = Conexao.conectar();
-            PreparedStatement stmt = conn.prepareStatement(sql)){
+        String sql = "SELECT p.id, p.cliente_id, c.nome AS cliente_nome, " +
+                "p.data_pedido, p.volume_m3, p.peso_kg, p.status " +
+                "FROM Pedido p " +
+                "JOIN Cliente c ON p.cliente_id = c.id";
 
-                ResultSet rs = stmt.executeQuery();
+        try (Connection conn = Conexao.conectar();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-                while(rs.next()){
-                    int id = rs.getInt("id");
-                    int clienteId = rs.getInt("cliente_id");
-                    String clienteNome = rs.getString("cliente_nome");
-                    LocalDate dataPedido = rs.getDate("data_pedido").toLocalDate();
-                    double volume = rs.getDouble("volume_m3");
-                    double peso = rs.getDouble("peso_kg");
-                    StatusPedido status = StatusPedido.valueOf(rs.getString("status"));
+            ResultSet rs = stmt.executeQuery();
 
-                    var pedido = new Pedido(id, clienteId, clienteNome, dataPedido, volume, peso, status);
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                int clienteId = rs.getInt("cliente_id");
+                String clienteNome = rs.getString("cliente_nome");
+                LocalDate dataPedido = rs.getDate("data_pedido").toLocalDate();
+                double volume = rs.getDouble("volume_m3");
+                double peso = rs.getDouble("peso_kg");
+                StatusPedido status = StatusPedido.valueOf(rs.getString("status"));
 
-                    pedidos.add(pedido);
-                }
+                var pedido = new Pedido(id, clienteNome, dataPedido, volume, peso, status);
+
+                pedidos.add(pedido);
             }
-            return pedidos;
         }
+        return pedidos;
+    }
+
+    public List<Pedido> buscarPedidoPorCpfCnpjDoCliente(String cpf_cnpj) throws SQLException {
+        List<Pedido> pedidos = new ArrayList<>();
+
+        String sql = "SELECT p.id, p.cliente_id, c.nome AS cliente_nome, " +
+                "p.data_pedido, p.volume_m3, p.peso_kg, p.status " +
+                "FROM Pedido p " +
+                "JOIN Cliente c ON p.cliente_id = c.id " +
+                "WHERE c.cpf_cnpj = ?";
+
+        try (Connection conn = Conexao.conectar();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, cpf_cnpj);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                int id = rs.getInt("id");
+                int clienteId = rs.getInt("cliente_id");
+                String clienteNome = rs.getString("cliente_nome");
+                LocalDate dataPedido = rs.getDate("data_pedido").toLocalDate();
+                double volume = rs.getDouble("volume_m3");
+                double peso = rs.getDouble("peso_kg");
+                StatusPedido status = StatusPedido.valueOf(rs.getString("status"));
+
+                var pedido = new Pedido(id, clienteNome, dataPedido, volume, peso, status);
+                pedidos.add(pedido);
+            }
+        }
+        return pedidos;
+    }
 }
