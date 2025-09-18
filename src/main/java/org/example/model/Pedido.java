@@ -21,12 +21,11 @@ public class Pedido {
         this.status = status;
     }
 
-    public Pedido(int cliente_id, LocalDate data_pedido, double volume_m3, double peso_kg, StatusPedido status) {
+    public Pedido(int cliente_id, LocalDate data_pedido, double volume_m3, double peso_kg) {
         this.cliente_id = cliente_id;
         this.data_pedido = data_pedido;
         this.volume_m3 = volume_m3;
         this.peso_kg = peso_kg;
-        this.status = status;
     }
 
     public int getId() {
