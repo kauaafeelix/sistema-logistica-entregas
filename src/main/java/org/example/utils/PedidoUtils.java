@@ -52,6 +52,7 @@ public class PedidoUtils {
                 System.out.println("DATA DO PEDIDO (YYYY:MM:DD): "+p.getData_pedido());
                 System.out.println("VOLUME: "+p.getVolume_m3()+"m³");
                 System.out.println("PESO: "+p.getPeso_kg()+"kg");
+                System.out.println("STATUS: "+p.getStatus());
             }
         }else{
             System.out.println("Nenhum Pedido cadastrado. ");
