@@ -62,7 +62,7 @@ public class ClienteDAO {
         try(Connection conn = Conexao.conectar();
             PreparedStatement stmt = conn.prepareStatement(sql)){
 
-            stmt.setString(1, nome);
+            stmt.setString(1,"%"+nome+"%");
 
             ResultSet rs = stmt.executeQuery();
 
