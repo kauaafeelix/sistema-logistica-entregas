@@ -1,11 +1,9 @@
 package org.example.service;
 
 
-import org.example.view.ViewCliente;
-import org.example.view.ViewGeral;
+import org.example.view.*;
 
 import org.example.view.ViewGeral;
-import org.example.view.ViewMotorista;
 
 public class GeralService {
     public void gerenciadorService(){
@@ -21,7 +19,10 @@ public class GeralService {
                 MotoristaService motoristaService = new MotoristaService();
                 motoristaService.gerenciadorMotorista();
             }
-            case 3->{}
+            case 3->{
+                PedidoService pedidoService = new PedidoService();
+                pedidoService.gerenciadorPedido();
+            }
             case 4->{}
             case 5->{}
             case 0->{}
