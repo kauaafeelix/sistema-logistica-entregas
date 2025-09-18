@@ -2,6 +2,7 @@ package org.example.utils;
 
 import org.example.DAO.ClienteDAO;
 import org.example.model.Cliente;
+import org.example.model.Pedido;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -42,5 +43,19 @@ public class PedidoUtils {
         LocalDate data_pedido = LocalDate.parse(entrada, formatter);
 
         return data_pedido;
+    }
+    public static void exibirPedidos (List<Pedido>pedidos){
+        if (pedidos != null && !pedidos.isEmpty()){
+            for (Pedido p: pedidos){
+                System.out.println("\nID: "+p.getId());
+                System.out.println("ID DO CLIENTE: "+p.getCliente_id());
+                System.out.println("NOME DO CLIENTE: "+p.getNome_cliente());
+                System.out.println("DATA DO PEDIDO (YYYY:MM:DD): "+p.getData_pedido());
+                System.out.println("VOLUME: "+p.getVolume_m3()+"m³");
+                System.out.println("PESO: "+p.getPeso_kg()+"kg");
+            }
+        }else{
+            System.out.println("Nenhum Pedido cadastrado. ");
+        }
     }
 }
