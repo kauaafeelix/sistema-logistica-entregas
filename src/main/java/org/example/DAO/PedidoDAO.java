@@ -104,4 +104,15 @@ public class PedidoDAO {
         }
     }
 
+    public void cancelarPedido (int idPedido) throws SQLException{
+        String sql = "UPDATE Pedido SET status = 'CANCELADO' WHERE id = ?";
+
+        try (Connection conn = Conexao.conectar();
+             PreparedStatement stmt = conn.prepareStatement(sql)){
+
+            stmt.setInt(1, idPedido);
+            stmt.executeUpdate();
+        }
+    }
+
 }
