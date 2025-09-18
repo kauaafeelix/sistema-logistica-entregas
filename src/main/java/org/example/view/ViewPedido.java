@@ -80,6 +80,21 @@ public class ViewPedido {
             System.out.println("Ocorreu um Erro no Banco de Dados. ");
         }
         PedidoUtils.exibirPedidos(pedidos);
-        }
+    }
 
+    public static void buscarPedido(){
+        List<Pedido>pedidosCpfCnpj = new ArrayList<>();
+
+        System.out.println("========= BUSCA DE PEDIDOS =========\n");
+
+        System.out.println("Digite o CPF ou CNPJ do Cliente que deseja ver o Pedido: ");
+        String cpf_cnpj = scStr.nextLine();
+        try{
+            var pedidoDao = new PedidoDAO();
+            pedidosCpfCnpj = pedidoDao.buscarPedidoPorCpfCnpjDoCliente(cpf_cnpj);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        PedidoUtils.exibirPedidos(pedidosCpfCnpj);
+    }
 }
