@@ -7,6 +7,8 @@ import org.example.utils.PedidoUtils;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class ViewPedido {
@@ -58,11 +60,26 @@ public class ViewPedido {
             System.out.println("Ocorreu um Erro no Banco de dados. ");
         }
 
-        }else{
+        }else {
             System.out.println("ID do cliente não encontrado.");
         }
 
 
     }
+
+    public static void listarPedidos(){
+        System.out.println("========= LISTA DE PEDIDOS =========\n");
+
+        List<Pedido>pedidos = new ArrayList<>();
+
+        try{
+            var pedidoDao = new PedidoDAO();
+            pedidos = pedidoDao.listarPedidos();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("Ocorreu um Erro no Banco de Dados. ");
+        }
+        PedidoUtils.exibirPedidos(pedidos);
+        }
 
 }
