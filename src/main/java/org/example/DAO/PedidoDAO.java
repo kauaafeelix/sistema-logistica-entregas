@@ -15,9 +15,8 @@ public class PedidoDAO {
                 cliente_id,
                 data_pedido,
                 volume_m3,
-                peso_kg,
-                status
-                VALUES (?,?,?,?,?)
+                peso_kg) 
+                VALUES (?,?,?,?)
                 """;
         try (Connection conn = Conexao.conectar();
              PreparedStatement stmt = conn.prepareStatement(sql)){
@@ -26,7 +25,6 @@ public class PedidoDAO {
             stmt.setDate(2, Date.valueOf(pedido.getData_pedido()));
             stmt.setDouble(3, pedido.getVolume_m3());
             stmt.setDouble(4, pedido.getPeso_kg());
-            stmt.setString(5, String.valueOf(pedido.getStatus()));
             stmt.executeUpdate();
 
         }
