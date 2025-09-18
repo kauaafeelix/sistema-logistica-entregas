@@ -17,11 +17,13 @@ public class ViewPedido {
     public static int menuPedido(){
         System.out.println("========= GERENCIADOR DE PEDIDO =========\n");
         System.out.println("""
-                1- Criar Pedido
-                2- Atribuir Pedido a um Motorista
-                3- Buscar Pedido por CPF/CNPJ do Cliente
-                4- Cancelar Pedido
-                5- Voltar ao Menu Principal
+                1 - CRIAR PEDIDO
+                2 - LISTAR PEDIDOS
+                3 - BUSCAR PEDIDO POR CPF/CNPJ DO CLIENTE
+                4 - ATUALIZAR STATUS DO PEDIDO
+                5 - CANCELAR PEDIDO
+                6 - EXCLUIR PEDIDO
+                0 - VOLTAR AO MENU PRINCIPAL
                 """);
         int opcao = scNum.nextInt();
         return opcao;
