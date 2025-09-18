@@ -7,6 +7,7 @@ import java.time.LocalDate;
 public class Pedido {
     private int id;
     private int cliente_id;
+    private String nome_cliente;
     private LocalDate data_pedido;
     private double volume_m3;
     private double peso_kg;
@@ -28,6 +29,16 @@ public class Pedido {
         this.peso_kg = peso_kg;
     }
 
+    public Pedido(int id, int cliente_id, String nome_cliente, LocalDate data_pedido, double volume_m3, double peso_kg, StatusPedido status) {
+        this.id = id;
+        this.cliente_id = cliente_id;
+        this.nome_cliente = nome_cliente;
+        this.data_pedido = data_pedido;
+        this.volume_m3 = volume_m3;
+        this.peso_kg = peso_kg;
+        this.status = status;
+    }
+
     public int getId() {
         return id;
     }
@@ -42,6 +53,14 @@ public class Pedido {
 
     public void setCliente_id(int cliente_id) {
         this.cliente_id = cliente_id;
+    }
+
+    public String getNome_cliente() {
+        return nome_cliente;
+    }
+
+    public void setNome_cliente(String nome_cliente) {
+        this.nome_cliente = nome_cliente;
     }
 
     public LocalDate getData_pedido() {
