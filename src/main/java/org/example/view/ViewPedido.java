@@ -103,18 +103,18 @@ public class ViewPedido {
     public static void atualizarPedido(){
         System.out.println("========= ATUALIZAR STATUS DO PEDIDO =========\n");
 
-        System.out.println("========= PEDIDOS JÁ CADASTRADOS =========\n");
+        System.out.println("========= PEDIDOS PENDENTES =========\n");
 
         List<Pedido>pedidos = new ArrayList<>();
         try{
             var pedidoDao = new PedidoDAO();
-            pedidos = pedidoDao.listarPedidos();
+            pedidos = pedidoDao.listarPedidosPendentes();
         } catch (SQLException e) {
             e.printStackTrace();
         }
         PedidoUtils.exibirPedidos(pedidos);
         System.out.println("\n================================");
-        if (pedidos != null && !pedidos.isEmpty()) {
+
             System.out.println("\nDigite o ID do Pedido que deseja: ");
             int id_pedido = scNum.nextInt();
 
@@ -130,5 +130,34 @@ public class ViewPedido {
                 System.out.println("OCORREU UM ERRO NO BANCO DE DADOS.");
             }
         }
+    public static void cancelarPedido() {
+        System.out.println("========= CANCELAR PEDIDO =========\n");
+
+        System.out.println("========= PEDIDOS PENDENTES =========\n");
+
+        List<Pedido> pedidos = new ArrayList<>();
+
+        try {
+            var pedidoDao = new PedidoDAO();
+            pedidos = pedidoDao.listarPedidosPendentes();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("OCORREU UM ERRO NO BANCO DE DADOS.");
+        }
+        PedidoUtils.exibirPedidos(pedidos);
+        System.out.println("\n================================");
+
+        System.out.println("Digite o ID do Pedido que deseja Cancelar: ");
+        int id_pedido = scNum.nextInt();
+
+        try{
+            var pedidoDao = new PedidoDAO();
+            pedidoDao.cancelarPedido(id_pedido);
+            System.out.println("\nO PEDIDO "+id_pedido+" FOI CANCELADO.");
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("OCORREU UM ERRO NO BANCO DE DADOS.");
+        }
     }
-}
+    }
+
