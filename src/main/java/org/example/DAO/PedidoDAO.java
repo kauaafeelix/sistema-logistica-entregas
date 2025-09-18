@@ -92,4 +92,16 @@ public class PedidoDAO {
         }
         return pedidos;
     }
+    public void atualizarStatusPedido(int idPedido, String novoStatus) throws SQLException {
+        String sql = "UPDATE Pedido SET status = ? WHERE id = ?";
+
+        try (Connection conn = Conexao.conectar();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, novoStatus.toUpperCase());
+            stmt.setInt(2, idPedido);
+            stmt.executeUpdate();
+        }
+    }
+
 }
