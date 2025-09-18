@@ -1,9 +1,11 @@
 package org.example.view;
 
+import org.example.DAO.ClienteDAO;
+import org.example.DAO.PedidoDAO;
 import org.example.model.Pedido;
-import org.example.model.enums.StatusPedido;
 import org.example.utils.PedidoUtils;
 
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.Scanner;
 
@@ -29,7 +31,10 @@ public class ViewPedido {
     public static void criarPedido(){
         System.out.println("========= CRIAR PEDIDO =========\n");
 
+        var pedidoDao = new PedidoDAO();
+
         int id_cliente = PedidoUtils.existeIdCliente();
+
         if (id_cliente != -1){
 
         LocalDate date = PedidoUtils.data();
@@ -40,12 +45,21 @@ public class ViewPedido {
         System.out.println("Digite o Peso do Pedido (em kg): ");
         double peso_kg = scNum.nextInt();
 
-        System.out.println("Digite o Status do Pedido (PENDENTE, ENTREGUE, CANCELADO): ");
-        StatusPedido status = StatusPedido.valueOf(scStr.nextLine());
+
+        var pedido = new Pedido(id_cliente, date, volume_m3, peso_kg);
+
+        try{
+            pedidoDao.criarPedido(pedido);
+            System.out.println("PEDIDO CRIADO COM SUCESSO!");
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("Ocorreu um Erro no Banco de dados. ");
+        }
 
         }else{
             System.out.println("ID do cliente não encontrado.");
         }
+
 
     }
 
