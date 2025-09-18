@@ -14,8 +14,12 @@ public class PedidoService {
             case 2->{
                 ViewPedido.listarPedidos();
             }
-            case 3->{}
+            case 3->{
+                ViewPedido.buscarPedido();
+            }
             case 4->{}
+            case 5->{}
+            case 6->{}
             case 0->{
                 ViewGeral.menuGeral();
             }
