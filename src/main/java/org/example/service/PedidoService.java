@@ -14,7 +14,9 @@ public class PedidoService {
             case 2->{}
             case 3->{}
             case 4->{}
-            case 0->{}
+            case 0->{
+                ViewGeral.menuGeral();
+            }
 
 
         }
