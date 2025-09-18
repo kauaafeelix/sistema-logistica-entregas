@@ -29,9 +29,8 @@ public class Pedido {
         this.peso_kg = peso_kg;
     }
 
-    public Pedido(int id, int cliente_id, String nome_cliente, LocalDate data_pedido, double volume_m3, double peso_kg, StatusPedido status) {
+    public Pedido(int id, String nome_cliente, LocalDate data_pedido, double volume_m3, double peso_kg, StatusPedido status) {
         this.id = id;
-        this.cliente_id = cliente_id;
         this.nome_cliente = nome_cliente;
         this.data_pedido = data_pedido;
         this.volume_m3 = volume_m3;
