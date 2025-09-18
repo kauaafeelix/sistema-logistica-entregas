@@ -48,7 +48,6 @@ public class PedidoUtils {
         if (pedidos != null && !pedidos.isEmpty()){
             for (Pedido p: pedidos){
                 System.out.println("\nID: "+p.getId());
-                System.out.println("ID DO CLIENTE: "+p.getCliente_id());
                 System.out.println("NOME DO CLIENTE: "+p.getNome_cliente());
                 System.out.println("DATA DO PEDIDO (YYYY:MM:DD): "+p.getData_pedido());
                 System.out.println("VOLUME: "+p.getVolume_m3()+"m³");
