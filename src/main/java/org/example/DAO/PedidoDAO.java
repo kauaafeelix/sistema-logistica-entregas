@@ -2,11 +2,12 @@ package org.example.DAO;
 
 import org.example.Conexao.Conexao;
 import org.example.model.Pedido;
+import org.example.model.enums.StatusPedido;
 
-import java.sql.Connection;
-import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class PedidoDAO {
     public void criarPedido(Pedido pedido) throws SQLException{
@@ -28,5 +29,35 @@ public class PedidoDAO {
             stmt.executeUpdate();
 
         }
+
     }
+        public List<Pedido> listarPedidos() throws SQLException{
+            List<Pedido>pedidos = new ArrayList<>();
+
+            String sql = "SELECT p.id, p.cliente_id, c.nome AS cliente_nome, " +
+                    "p.data_pedido, p.volume_m3, p.peso_kg, p.status " +
+                    "FROM Pedido p " +
+                    "JOIN Cliente c ON p.cliente_id = c.id";
+
+            try (Connection conn = Conexao.conectar();
+            PreparedStatement stmt = conn.prepareStatement(sql)){
+
+                ResultSet rs = stmt.executeQuery();
+
+                while(rs.next()){
+                    int id = rs.getInt("id");
+                    int clienteId = rs.getInt("cliente_id");
+                    String clienteNome = rs.getString("cliente_nome");
+                    LocalDate dataPedido = rs.getDate("data_pedido").toLocalDate();
+                    double volume = rs.getDouble("volume_m3");
+                    double peso = rs.getDouble("peso_kg");
+                    StatusPedido status = StatusPedido.valueOf(rs.getString("status"));
+
+                    var pedido = new Pedido(id, clienteId, clienteNome, dataPedido, volume, peso, status);
+
+                    pedidos.add(pedido);
+                }
+            }
+            return pedidos;
+        }
 }
