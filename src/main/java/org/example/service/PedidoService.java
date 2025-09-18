@@ -20,7 +20,9 @@ public class PedidoService {
             case 4->{
                 ViewPedido.atualizarPedido();
             }
-            case 5->{}
+            case 5->{
+                ViewPedido.cancelarPedido();
+            }
             case 6->{}
             case 0->{
                 ViewGeral.menuGeral();
