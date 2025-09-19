@@ -159,5 +159,44 @@ public class ViewPedido {
             System.out.println("OCORREU UM ERRO NO BANCO DE DADOS.");
         }
     }
+    public static void excluirPedido(){
+        System.out.println("========= EXCLUIR PEDIDO =========\n");
+
+        System.out.println("========= PEDIDOS JÁ CADASTRADOS =========\n");
+
+        List<Pedido>pedidos = new ArrayList<>();
+
+        try{
+            var pedidoDao = new PedidoDAO();
+            pedidos = pedidoDao.listarPedidos();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        PedidoUtils.exibirPedidos(pedidos);
+        System.out.println("\n================================");
+
+        System.out.println("Digite o ID do Pedido que deseja excluir: ");
+        int idPedido = scNum.nextInt();
+
+        System.out.println("Você tem certeza que deseja excluir o Pedido de ID " + idPedido + " ? (S/N)");
+        System.out.println("Caso exclua o Pedido, todas as Entregas vinculados a ele também serão excluídos.");
+        System.out.println("Essa operação não poderá ser desfeita.");
+        String confirma = scStr.nextLine();
+
+        if(!confirma.equalsIgnoreCase("S")){
+            System.out.println("Operação Cancelada pelo Usuário.");
+            return;
+        }
+        else {
+            try{
+                var pedidoDao = new PedidoDAO();
+                pedidoDao.deletarPedido(idPedido);
+                System.out.println("PEDIDO COM ID "+idPedido+" DELETADO");
+            } catch (SQLException e) {
+                e.printStackTrace();
+                System.out.println("OCORREU UM ERRO NO BANCO DE DADOS. ");
+            }
+        }
     }
+}
 
