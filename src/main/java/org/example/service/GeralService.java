@@ -23,7 +23,10 @@ public class GeralService {
                 PedidoService pedidoService = new PedidoService();
                 pedidoService.gerenciadorPedido();
             }
-            case 4->{}
+            case 4->{
+                EntregaService entregaService = new EntregaService();
+                entregaService.gerenciadorEntrega();
+            }
             case 5->{}
             case 0->{}
 
