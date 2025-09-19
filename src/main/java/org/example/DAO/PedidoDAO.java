@@ -144,4 +144,13 @@ public class PedidoDAO {
         return pedidos;
     }
 
+    public void deletarPedido (int idPedido) throws SQLException{
+        String sql = "DELETE FROM Pedidos WHERE id = ?";
+
+        try(Connection conn = Conexao.conectar();
+            PreparedStatement stmt = conn.prepareStatement(sql)){
+            stmt.setInt(1, idPedido);
+            stmt.executeUpdate();
+        }
+    }
 }
