@@ -1,5 +1,9 @@
 package org.example.view;
 
+import org.example.DAO.EntregaDAO;
+import org.example.utils.EntregaUtils;
+
+import java.sql.SQLException;
 import java.util.Scanner;
 
 public class ViewEntrega {
@@ -24,5 +28,28 @@ public class ViewEntrega {
         int opcao = scNum.nextInt();
 
         return opcao;
+    }
+
+    public static void gerarEntrega(){
+        System.out.println("========= GERANDO ENTREGA =========\n");
+
+        int pedidoId = EntregaUtils.existeIdPedido();
+        int motoristaId = EntregaUtils.existeIdMotorista();
+
+        if (pedidoId != -1 && motoristaId != -1) {
+
+
+            var entregaDAO = new EntregaDAO();
+
+            try {
+                entregaDAO.gerarEntrega(pedidoId, motoristaId);
+                System.out.println("ENTREGA GERADA COM SUCESSO!");
+            } catch (SQLException e) {
+                e.printStackTrace();
+                System.out.println("Ocorreu um erro no Banco de Dados!");
+            }
+        }else {
+            System.out.println("ID do Pedido e do Motorista não encontrado.");
+        }
     }
 }
