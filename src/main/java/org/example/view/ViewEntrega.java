@@ -1,9 +1,12 @@
 package org.example.view;
 
 import org.example.DAO.EntregaDAO;
+import org.example.model.Entrega;
 import org.example.utils.EntregaUtils;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class ViewEntrega {
@@ -49,7 +52,44 @@ public class ViewEntrega {
                 System.out.println("Ocorreu um erro no Banco de Dados!");
             }
         }else {
-            System.out.println("ID do Pedido e do Motorista não encontrado.");
+            System.out.println("ID do Pedido ou do Motorista não encontrado.");
         }
     }
+
+    public static void listarEntregasPorMotoristaECliente() {
+        System.out.println("========= LISTANDO ENTREGAS POR MOTORISTA E CLIENTE =========\n");
+
+        var entregaDAO = new EntregaDAO();
+
+        int idCliente = EntregaUtils.existeIdCliente();
+        int idMotista = EntregaUtils.existeIdMotorista();
+
+        if (idMotista != -1 && idCliente != -1) {
+
+            try {
+                entregaDAO.listarEntregasPorClienteEMotorista(idCliente, idMotista);
+            } catch (SQLException e) {
+                e.printStackTrace();
+                System.out.println("Ocorreu um erro no Banco de Dados!");
+            }
+        } else {
+            System.out.println("ID do Motorista ou do Cliente não encontrado.");
+        }
+
+    }
+        public static void listarTodasEntregas () {
+            System.out.println("========= LISTA DE TODAS AS ENTREGAS =========\n");
+
+            List<Entrega>entregas = new ArrayList<>();
+
+            var entregaDAO = new EntregaDAO();
+
+            try {
+                entregas = entregaDAO.listarTodasEntregas();
+            } catch (SQLException e) {
+                e.printStackTrace();
+                System.out.println("Ocorreu um erro no Banco de Dados!");
+            }
+            EntregaUtils.exibirEntregas(entregas);
+        }
 }
