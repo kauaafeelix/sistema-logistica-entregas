@@ -139,4 +139,16 @@ public class EntregaDAO {
         }
         return entregas;
     }
+
+    public void registrarEventoDeEntrega(int idEntrega, StatusEntrega novoStatus) throws SQLException {
+        String sql = "UPDATE Entrega SET status_entrega = ?, data_entrega = CURRENT_DATE WHERE id = ?";
+
+        try (Connection conn = Conexao.conectar();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, novoStatus.name());
+            stmt.setInt(2, idEntrega);
+            stmt.executeUpdate();
+        }
+    }
+
 }
