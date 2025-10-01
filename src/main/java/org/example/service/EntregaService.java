@@ -7,9 +7,15 @@ public class EntregaService {
         int opcao = ViewEntrega.menuEntrega();
 
         switch (opcao){
-            case 1->{}
-            case 2->{}
-            case 3->{}
+            case 1->{
+                ViewEntrega.gerarEntrega();
+            }
+            case 2->{
+                ViewEntrega.listarEntregasPorMotoristaECliente();
+            }
+            case 3->{
+                ViewEntrega.listarTodasEntregas();
+            }
             case 4->{}
             case 5->{}
             case 6->{}
