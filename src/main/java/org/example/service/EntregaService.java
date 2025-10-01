@@ -16,8 +16,12 @@ public class EntregaService {
             case 3->{
                 ViewEntrega.listarTodasEntregas();
             }
-            case 4->{}
-            case 5->{}
+            case 4->{
+                ViewEntrega.buscarEntregaPorId();
+            }
+            case 5->{
+                ViewEntrega.registrarEventoDeEntrega();
+            }
             case 6->{}
             case 0->{}
         }
