@@ -92,4 +92,24 @@ public class ViewEntrega {
             }
             EntregaUtils.exibirEntregas(entregas);
         }
+
+        public static void buscarEntregaPorId(){
+            System.out.println("========= BUSCANDO ENTREGA POR ID =========\n");
+            List<Entrega>entregas = new ArrayList<>();
+
+            System.out.println("Digite o ID da Entrega que deseja buscar: ");
+            int id = scNum.nextInt();
+
+
+            try{
+            var entregaDAO = new EntregaDAO();
+            entregas = entregaDAO.buscarEntregaPorId(id);
+            } catch (SQLException e) {
+                e.printStackTrace();
+                System.out.println("Ocorreu um erro no Banco de Dados!");
+            }
+            EntregaUtils.exibirEntregas(entregas);
+        }
+
+
 }
