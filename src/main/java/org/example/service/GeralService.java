@@ -1,12 +1,10 @@
 package org.example.service;
 
 
-import org.example.view.*;
-
 import org.example.view.ViewGeral;
 
 public class GeralService {
-    public void gerenciadorService(){
+    public int gerenciadorService(){
 
         int opcao = ViewGeral.menuGeral();
 
@@ -27,9 +25,12 @@ public class GeralService {
                 EntregaService entregaService = new EntregaService();
                 entregaService.gerenciadorEntrega();
             }
-            case 5->{}
+            case 5->{
+
+            }
             case 0->{}
 
         }
+        return opcao;
     }
 }
