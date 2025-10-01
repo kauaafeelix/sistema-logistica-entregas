@@ -2,6 +2,7 @@ package org.example.view;
 
 import org.example.DAO.EntregaDAO;
 import org.example.model.Entrega;
+import org.example.model.enums.StatusEntrega;
 import org.example.utils.EntregaUtils;
 
 import java.sql.SQLException;
@@ -109,6 +110,26 @@ public class ViewEntrega {
                 System.out.println("Ocorreu um erro no Banco de Dados!");
             }
             EntregaUtils.exibirEntregas(entregas);
+        }
+
+        public static void registrarEventoDeEntrega(){
+            System.out.println("========= REGISTRAR EVENTO DE ENTREGA =========\n");
+
+            System.out.println("Digite o ID da Entrega que deseja registrar o evento: ");
+            int id = scNum.nextInt();
+
+            System.out.println("Digite o Evento que deseja registrar: ");
+            String evento = scstr.nextLine();
+
+            var entregaDAO = new EntregaDAO();
+
+            try{
+                entregaDAO.registrarEventoDeEntrega(id, StatusEntrega.valueOf(evento));
+                System.out.println("EVENTO REGISTRADO COM SUCESSO!");
+            } catch (SQLException e) {
+                e.printStackTrace();
+                System.out.println("Ocorreu um erro no Banco de Dados!");
+            }
         }
 
 
