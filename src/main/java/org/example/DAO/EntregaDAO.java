@@ -102,4 +102,41 @@ public class EntregaDAO {
         }
         return entregas;
     }
+
+    public List<Entrega>buscarEntregaPorId(int id) throws SQLException{
+        List<Entrega>entregas = new ArrayList<>();
+
+        String sql = """
+                SELECT 
+            e.id AS entrega_id,
+            e.pedido_id,
+            m.nome AS motorista_nome,
+            e.data_saida,
+            e.data_entrega,
+            e.status
+        FROM Entrega e
+        INNER JOIN Motorista m ON e.motorista_id = m.id
+        INNER JOIN Pedido p ON e.pedido_id = p.id
+        WHERE e.id = ?
+        """;
+
+        try (Connection conn = Conexao.conectar();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, id);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                int idEntrega = rs.getInt("entrega_id");
+                int pedidoId = rs.getInt("pedido_id");
+                int motoristaNome = rs.getInt("motorista_id");
+                LocalDate dataSaida = rs.getDate("data_saida").toLocalDate();
+                LocalDate dataEntrega = rs.getDate("data_entrega").toLocalDate();
+                String statusEntrega = rs.getString("status");
+
+                Entrega entrega = new Entrega(idEntrega, pedidoId, motoristaNome, dataSaida, dataEntrega, StatusEntrega.valueOf(statusEntrega));
+                entregas.add(entrega);
+            }
+        }
+        return entregas;
+    }
 }
