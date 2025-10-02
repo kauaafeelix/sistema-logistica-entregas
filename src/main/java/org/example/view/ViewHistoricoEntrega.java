@@ -63,4 +63,17 @@ public class ViewHistoricoEntrega {
             e.printStackTrace();
         }
     }
+
+    public static void entregasAtrasadasPorCidade() {
+
+        System.out.println("========= ENTREGAS ATRASADAS POR CIDADE =========\n");
+
+        var historicoDAO = new HistoricoEntregaDAO();
+
+        try {
+            historicoDAO.entregasAtrasadasPorCidade();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }
