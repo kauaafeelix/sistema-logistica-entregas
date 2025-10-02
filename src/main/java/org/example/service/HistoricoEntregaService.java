@@ -1,5 +1,6 @@
 package org.example.service;
 
+import org.example.view.ViewGeral;
 import org.example.view.ViewHistoricoEntrega;
 
 public class HistoricoEntregaService {
@@ -18,8 +19,10 @@ public class HistoricoEntregaService {
                 ViewHistoricoEntrega.pedidosPendentesPorEstado();
             }
             case 4->{
+                ViewHistoricoEntrega.entregasAtrasadasPorCidade();
             }
             case 0->{
+                ViewGeral.menuGeral();
             }
         }
     }
