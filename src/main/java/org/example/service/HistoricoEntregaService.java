@@ -15,7 +15,7 @@ public class HistoricoEntregaService {
                 ViewHistoricoEntrega.clientesMaiorVolumeEntregue();
             }
             case 3->{
-
+                ViewHistoricoEntrega.pedidosPendentesPorEstado();
             }
             case 4->{
             }
