@@ -50,4 +50,17 @@ public class ViewHistoricoEntrega {
             e.printStackTrace();
         }
     }
+
+    public static void pedidosPendentesPorEstado() {
+
+        System.out.println("========= PEDIDOS PENDENTES POR ESTADO =========\n");
+
+        var historicoDAO = new HistoricoEntregaDAO();
+
+        try {
+            historicoDAO.pedidosPendentesPorEstado();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }
