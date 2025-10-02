@@ -151,4 +151,14 @@ public class EntregaDAO {
         }
     }
 
+    public void excluirEntrega(int idEntrega) throws SQLException {
+        String sql = "DELETE FROM Entrega WHERE id = ?";
+
+        try (Connection conn = Conexao.conectar();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, idEntrega);
+            stmt.executeUpdate();
+        }
+    }
+
 }
