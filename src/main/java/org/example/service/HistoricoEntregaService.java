@@ -12,8 +12,10 @@ public class HistoricoEntregaService {
                 ViewHistoricoEntrega.totalEntregasPorMotorista();
             }
             case 2->{
+                ViewHistoricoEntrega.clientesMaiorVolumeEntregue();
             }
             case 3->{
+
             }
             case 4->{
             }
