@@ -63,5 +63,32 @@ public class HistoricoEntregaDAO {
         }
     }
 
+    public void pedidosPendentesPorEstado() throws SQLException {
 
+        String sql = """
+                SELECT p.estado AS estado, COUNT(e.id) AS pedidos_pendentes
+                FROM Pedido p
+                LEFT JOIN Entrega e ON p.id = e.pedido_id AND e.status = 'PENDENTE'
+                GROUP BY p.estado
+                ORDER BY pedidos_pendentes DESC;
+                """;
+
+        try (Connection conn = Conexao.conectar();
+             var stmt = conn.prepareStatement(sql);
+             var rs = stmt.executeQuery()) {
+
+            System.out.printf("%-20s | %-20s%n", "Estado", "Pedidos Pendentes");
+            System.out.println("---------------------+----------------------");
+
+            while (rs.next()) {
+                String estado = rs.getString("estado");
+                int pedidosPendentes = rs.getInt("pedidos_pendentes");
+                System.out.printf("%-20s | %-20d%n", estado, pedidosPendentes);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
 }
