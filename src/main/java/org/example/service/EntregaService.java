@@ -1,6 +1,7 @@
 package org.example.service;
 
 import org.example.view.ViewEntrega;
+import org.example.view.ViewGeral;
 
 public class EntregaService {
     public void gerenciadorEntrega(){
@@ -25,7 +26,9 @@ public class EntregaService {
             case 6->{
                 ViewEntrega.excluirEntega();
             }
-            case 0->{}
+            case 0->{
+                ViewGeral.menuGeral();
+            }
         }
     }
 }
