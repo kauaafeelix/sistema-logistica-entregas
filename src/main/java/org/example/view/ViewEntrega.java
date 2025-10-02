@@ -132,5 +132,28 @@ public class ViewEntrega {
             }
         }
 
+        public static void excluirEntega (){
+            System.out.println("========= EXCLUIR ENTREGA =========\n");
+
+            System.out.println("ENTREGAS DISPONÍVEIS: ");
+
+            List<Entrega>entregas = new ArrayList<>();
+
+            EntregaUtils.exibirEntregas(entregas);
+
+            System.out.println("Digite o ID da Entrega que deseja excluir: ");
+            int id = scNum.nextInt();
+
+            var entregaDAO = new EntregaDAO();
+
+            try{
+                entregaDAO.excluirEntrega(id);
+                System.out.println("ENTREGA EXCLUÍDA COM SUCESSO!");
+            } catch (SQLException e) {
+                e.printStackTrace();
+                System.out.println("Ocorreu um erro no Banco de Dados!");
+            }
+        }
+
 
 }
