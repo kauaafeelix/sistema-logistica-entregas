@@ -10,7 +10,7 @@ public class ViewHistoricoEntrega {
     static Scanner scNum = new Scanner(System.in);
     static Scanner scStr = new Scanner(System.in);
 
-    public static int RelatorioMenu(){
+    public static int RelatorioMenu() {
 
         System.out.print("""
                 \n|| ==================== MENU RELATÓRIOS ==================== ||
@@ -23,9 +23,9 @@ public class ViewHistoricoEntrega {
                 """);
         int opcao = scNum.nextInt();
         return opcao;
-}
+    }
 
-    public static void totalEntregasPorMotorista(){
+    public static void totalEntregasPorMotorista() {
 
         System.out.println("========= TOTAL DE ENTREGAS POR MOTORISTA =========\n");
 
@@ -33,6 +33,19 @@ public class ViewHistoricoEntrega {
 
         try {
             historicoDAO.totalEntregasPorMotorista();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void clientesMaiorVolumeEntregue() {
+
+        System.out.println("========= CLIENTES COM MAIOR VOLUME ENTREGUE =========\n");
+
+        var historicoDAO = new HistoricoEntregaDAO();
+
+        try {
+            historicoDAO.clientesComMaiorVolumeEntregue();
         } catch (SQLException e) {
             e.printStackTrace();
         }
