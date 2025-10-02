@@ -1,5 +1,9 @@
 package org.example.view;
 
+import org.example.DAO.HistoricoEntregaDAO;
+import org.example.model.HistoricoEntrega;
+
+import java.sql.SQLException;
 import java.util.Scanner;
 
 public class ViewHistoricoEntrega {
@@ -20,4 +24,17 @@ public class ViewHistoricoEntrega {
         int opcao = scNum.nextInt();
         return opcao;
 }
+
+    public static void totalEntregasPorMotorista(){
+
+        System.out.println("========= TOTAL DE ENTREGAS POR MOTORISTA =========\n");
+
+        var historicoDAO = new HistoricoEntregaDAO();
+
+        try {
+            historicoDAO.totalEntregasPorMotorista();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }
