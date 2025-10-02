@@ -22,7 +22,9 @@ public class EntregaService {
             case 5->{
                 ViewEntrega.registrarEventoDeEntrega();
             }
-            case 6->{}
+            case 6->{
+                ViewEntrega.excluirEntega();
+            }
             case 0->{}
         }
     }
