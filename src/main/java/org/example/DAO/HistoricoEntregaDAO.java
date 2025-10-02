@@ -91,4 +91,31 @@ public class HistoricoEntregaDAO {
         }
 
     }
+
+    public void entregasAtrasadasPorCidade()throws SQLException{
+
+        String sql = """
+                SELECT p.cidade AS cidade, COUNT(e.id) AS entregas_atrasadas
+                FROM Pedido p
+                JOIN Entrega e ON p.id = e.pedido_id
+                WHERE e.data_entrega > e.data_prevista
+                GROUP BY p.cidade
+                ORDER BY entregas_atrasadas DESC;
+                """;
+
+        try (Connection conn = Conexao.conectar();
+             var stmt = conn.prepareStatement(sql);
+             var rs = stmt.executeQuery()) {
+
+            System.out.printf("%-20s | %-20s%n", "Cidade", "Entregas Atrasadas");
+            System.out.println("---------------------+----------------------");
+            while (rs.next()) {
+                String cidade = rs.getString("cidade");
+                int entregasAtrasadas = rs.getInt("entregas_atrasadas");
+                System.out.printf("%-20s | %-20d%n", cidade, entregasAtrasadas);
+            }
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+    }
 }
