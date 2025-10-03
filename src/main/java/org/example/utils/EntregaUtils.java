@@ -82,7 +82,7 @@ public class EntregaUtils {
             for (Entrega e : entregas) {
                 System.out.println("\nID DA ENTREGA: " + e.getId());
                 System.out.println("ID DO PEDIDO: " + e.getPedido_id());
-                System.out.println("NOME DO MOTORISTA:" +e.getMotorista_id());
+                System.out.println("ID DO MOTORISTA:" +e.getMotorista_id());
                 System.out.println("DATA_SAIDA (YYYY:MM:DD): " + e.getData_saida());
                 System.out.println("DATA DA ENTREGA (YYYY:MM:DD): " + e.getData_entrega());
                 System.out.println("STATUS: " + e.getStatus());
