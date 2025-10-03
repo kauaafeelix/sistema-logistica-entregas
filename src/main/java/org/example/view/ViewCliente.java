@@ -102,10 +102,20 @@ public class ViewCliente {
     public static void excluirCliente(){
         System.out.println("========= EXCLUIR CLIENTE =========\n");
 
-        System.out.println("CLIENTES DISPONÍVEIS: ");
+
 
         List<Cliente>clientes = new ArrayList<>();
 
+        try{
+            System.out.println("Digite o nome do cliente que deseja excluir: ");
+            String nome = scStr.nextLine();
+            var clienteDao = new ClienteDAO();
+            clientes = clienteDao.buscarCliente(nome);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("Ocorreu um Erro no Banco de Dados.");
+        }
         ClienteUtils.exibirClientes(clientes);
 
         System.out.println("Digite o ID do Cliente que deseja excluir: ");
