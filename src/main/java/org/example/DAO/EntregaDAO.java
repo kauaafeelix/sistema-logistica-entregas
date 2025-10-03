@@ -21,8 +21,8 @@ public class EntregaDAO {
                 pedido_id,
                 motorista_id,
                 data_entrega,
-                status_entrega)
-                VALUES (?, ?, CURRENT_DATE, 'PENDENTE')
+                status)
+                VALUES (?, ?, CURRENT_DATE, 'EM_ROTA');
                 """;
 
         try (Connection conn = Conexao.conectar();
@@ -37,7 +37,7 @@ public class EntregaDAO {
 
     public void listarEntregasPorClienteEMotorista(int idCliente, int idMotorista) throws SQLException {
         String sql = """
-                SELECT e.id, e.pedido_id, e.motorista_id, e.data_entrega, e.status_entrega
+                SELECT e.id, e.pedido_id, e.motorista_id, e.data_entrega, e.status
                 FROM Entrega e
                 JOIN Pedido p ON e.pedido_id = p.id
                 WHERE p.cliente_id = ? AND e.motorista_id = ?
@@ -56,13 +56,13 @@ public class EntregaDAO {
                 int pedidoId = rs.getInt("pedido_id");
                 int motoristaId = rs.getInt("motorista_id");
                 var dataEntrega = rs.getDate("data_entrega").toLocalDate();
-                String statusEntrega = rs.getString("status_entrega");
+                String statusEntrega = rs.getString("status");
 
                 System.out.println("\nID ENTREGA: " + idEntrega);
                 System.out.println("ID PEDIDO: " + pedidoId);
                 System.out.println("ID MOTORISTA: " + motoristaId);
                 System.out.println("DATA ENTREGA: " + dataEntrega);
-                System.out.println("STATUS ENTREGA: " + statusEntrega);
+                System.out.println("STATUS: " + statusEntrega);
             }
         }
     }
@@ -73,7 +73,7 @@ public class EntregaDAO {
         String sql = """
                 SELECT
                     e.id AS entrega_id,
-                    m.nome AS motorista_nome,
+                    e.motorista_id,
                     e.pedido_id,
                     e.status,
                     e.data_saida,
@@ -89,12 +89,11 @@ public class EntregaDAO {
              ResultSet rs = stmt.executeQuery()) {
 
             while (rs.next()) {
-                int id = rs.getInt("id");
-                int pedidoId = rs.getInt("pedido_id");
+                int id = rs.getInt("entrega_id");                int pedidoId = rs.getInt("pedido_id");
                 int motoristaId = rs.getInt("motorista_id");
                 LocalDate dataSaida = rs.getDate("data_saida").toLocalDate();
                 LocalDate dataEntrega = rs.getDate("data_entrega").toLocalDate();
-                String statusEntrega = rs.getString("status_entrega");
+                String statusEntrega = rs.getString("status");
 
                 Entrega entrega = new Entrega(id, pedidoId, motoristaId, dataSaida, dataEntrega, StatusEntrega.valueOf(statusEntrega));
                 entregas.add(entrega);
@@ -107,10 +106,10 @@ public class EntregaDAO {
         List<Entrega>entregas = new ArrayList<>();
 
         String sql = """
-                SELECT 
+        SELECT
             e.id AS entrega_id,
             e.pedido_id,
-            m.nome AS motorista_nome,
+            e.motorista_id, 
             e.data_saida,
             e.data_entrega,
             e.status
@@ -118,7 +117,7 @@ public class EntregaDAO {
         INNER JOIN Motorista m ON e.motorista_id = m.id
         INNER JOIN Pedido p ON e.pedido_id = p.id
         WHERE e.id = ?
-        """;
+    """;
 
         try (Connection conn = Conexao.conectar();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -128,12 +127,11 @@ public class EntregaDAO {
             while (rs.next()) {
                 int idEntrega = rs.getInt("entrega_id");
                 int pedidoId = rs.getInt("pedido_id");
-                int motoristaNome = rs.getInt("motorista_id");
-                LocalDate dataSaida = rs.getDate("data_saida").toLocalDate();
+                int motoristaId = rs.getInt("motorista_id");                LocalDate dataSaida = rs.getDate("data_saida").toLocalDate();
                 LocalDate dataEntrega = rs.getDate("data_entrega").toLocalDate();
                 String statusEntrega = rs.getString("status");
 
-                Entrega entrega = new Entrega(idEntrega, pedidoId, motoristaNome, dataSaida, dataEntrega, StatusEntrega.valueOf(statusEntrega));
+                Entrega entrega = new Entrega(idEntrega, pedidoId, motoristaId, dataSaida, dataEntrega, StatusEntrega.valueOf(statusEntrega));
                 entregas.add(entrega);
             }
         }
